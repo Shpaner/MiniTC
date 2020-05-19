@@ -1,0 +1,53 @@
+﻿<Window x:Class="MiniTC.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        
+        xmlns:local="clr-namespace:MiniTC"
+        xmlns:vm="clr-namespace:MiniTC.ViewModel"
+        
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Title="MiniTC" Height="450" Width="800">
+    <Window.Resources>
+        <vm:ViewModel x:Key="viewModel"/>
+    </Window.Resources>
+    <Grid Background="LightGray" DataContext="{StaticResource viewModel}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <!--LEFT PANEL-->
+        <local:PanelTC Path="{Binding CurrentDir1, Mode=TwoWay}" Disks="{Binding Path=Disks}" Files="{Binding Path=Files1}" SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding Click1}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </local:PanelTC>
+
+        <!--RIGHT PANEL-->
+        <local:PanelTC Grid.Column="1" Path="{Binding CurrentDir2, Mode=TwoWay}" Disks="{Binding Path=Disks}" Files="{Binding Path=Files2}" SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding Click2}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </local:PanelTC>
+
+        <Button Content="Copy >>" Grid.Row="1" 
+                HorizontalAlignment="Center" VerticalAlignment="Top"
+                    Grid.ColumnSpan="2">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <i:InvokeCommandAction Command="{Binding CopyClick}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+    </Grid>
+</Window>

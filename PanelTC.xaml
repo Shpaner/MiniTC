@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="MiniTC.PanelTC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MiniTC"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="400">
+    <Grid Width="400" Background="LightGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="17*"/>
+                <ColumnDefinition Width="49*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="path" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="36,6,32,6" Width="34" Height="26"/>
+            <TextBox Grid.Column="1" VerticalAlignment="Center" 
+                         Margin="0,10,10,10" Height="22" 
+                     Text="{Binding Path=Path, Mode=TwoWay,
+                        UpdateSourceTrigger=PropertyChanged, 
+                        RelativeSource={
+                                        RelativeSource Mode=FindAncestor, 
+                                        AncestorType={x:Type UserControl}
+                                       }}">
+
+            </TextBox>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="17*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="drive" HorizontalAlignment="Right" VerticalAlignment="Center" Height="26" Margin="0,6" Width="36"/>
+            <ComboBox Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                      Margin="0,10,10,10" Width="55" Height="22"
+                      SelectionChanged="ComboBox_SelectionChanged"
+                      ItemsSource="{Binding Path=Disks, Mode=TwoWay,
+                        UpdateSourceTrigger=PropertyChanged, 
+                        RelativeSource={
+                                        RelativeSource Mode=FindAncestor, 
+                                        AncestorType={x:Type UserControl}
+                                       }}"/>
+        </Grid>
+        <ListBox Grid.Row="2" Margin="10,0,10,10" 
+                 SelectedItem="{Binding SelectedItem,
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,
+                        RelativeSource={
+                                        RelativeSource Mode=FindAncestor, 
+                                        AncestorType={x:Type UserControl}
+                                       }}"
+                 ItemsSource="{Binding Path=Files, Mode=TwoWay,
+                        UpdateSourceTrigger=PropertyChanged, 
+                        RelativeSource={
+                                        RelativeSource Mode=FindAncestor, 
+                                        AncestorType={x:Type UserControl}
+                                       }}">
+        </ListBox>
+
+    </Grid>
+</UserControl>
